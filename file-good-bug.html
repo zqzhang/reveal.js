@@ -1,0 +1,405 @@
+<!doctype html>  
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        
+        <title>How to File a Good Bug Report</title>
+
+        <meta name="description" content="A session of Test the Web Forward at Beijing" href="http://testthewebforward.org/beijing-2012.html">
+        <meta name="presdate" content="20120615">
+        <meta name="author" content="Zhiqiang Zhang" href="mailto:zhiqiang.zhang@intel.com">
+        <meta name="author" content="Elika J. Etemad" href="http://fantasai.inkedblade.net/">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>How to File a Good Bug Report</h1>
+                    <p>
+                        <i>Zhiqiang Zhang (<a href="mailto:zhiqiang.zhang@intel.com" class="url Nickname">zqzhang</a>), <a class="org" href="http://www.intel.com/">Intel China</a></i>
+                    </p>
+                    <p>
+                        <i>Elika J. Etemad (<a href="http://fantasai.inkedblade.net/" class="url Nickname">fantasai</a>), <a class="org" href="http://www.mozilla.org/">Mozilla Project</a>, <a class="org" href="http://www.w3.org/Style/CSS/">W3C CSS Working Group</a></i>
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Bug Tracking</h2>
+                    <ul>
+                        <li>WebKit <a href="https://bugs.webkit.org/">https://bugs.webkit.org/</a></li>
+                        <li>Mozilla/Gecko <a href="https://bugzilla.mozilla.org/">https://bugzilla.mozilla.org/</a></li>
+                        <li>Opera <a href="https://bugs.opera.com/wizard/">https://bugs.opera.com/wizard/</a></li>
+                        <li>Internet Explorer <a href="http://connect.microsoft.com/IE">http://connect.microsoft.com/IE</a></li>
+                        <br>
+                        <li>Maxthon <a href="http://bbs.maxthon.cn/">http://bbs.maxthon.cn/</a></li>
+                        <li>Baidu <a href="http://pcbbs.baidu.com/forum.php?gid=1">http://pcbbs.baidu.com/forum.php?gid=1</a></li>
+                        <br>
+                        <li>CSS Test Suite <a href="https://test.csswg.org/shepherd/">https://test.csswg.org/shepherd/</a></li>
+                    </ul>
+                </section>
+                
+                <!-- Nested vertical slides -->
+                <section>
+                    <section>
+                        <h2>Useful Bug Reports</h2>
+                        <ul>
+                            <p>
+                                <strong>Useful bug reports are ones that get bugs fixed.</strong>
+                            </p>
+                            <p>
+                                <i><a href="http://web.archive.org/web/20000302035824/http://www.mozilla.org/quality/bug-writing-guidelines.html">A useful bug report is...</a></i>
+                            </p>
+                            <li><strong>Reproducible</strong></li>
+                            <p>
+                                <small>If an engineer can't see it or conclusively prove that it exists,
+                                the engineer will probably stamp it "WORKSFORME" or "INVALID",
+                                and move on to the next bug.</small>
+                            </p>
+                            <li><strong>Specific</strong></li>
+                            <p>
+                                <small>The quicker the engineer can trace down the issue to a specific problem,
+                                the more likely it'll be fixed expediently.</small>
+                            </p>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Useful Bug Reports</h2>
+                        <ul>
+                            <p>
+                                Goal:
+                            </p>
+                            <li>Pinpoint the bug</li>
+                            <li>Explain it to the developer</li>
+                        </ul> 
+                    </section>
+                    <section>
+                        <h2>Useful Bug Reports</h2>
+                        <ul>
+                            <li><strong>Reporter's job</strong></li>
+                            <p>
+                                Figure out exactly what the problem is.
+                            </p>
+                            <li><strong>Developer's job</strong></li>
+                            <p>
+                                Figure out exactly how to fix the problem.
+                            </p>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Bug Reporting General Guidelines</h2>
+                    <ul>
+                        <li>Avoid duplicates:
+                            <br><strong>Search before you file!</strong></li>
+                        <li><strong>One</strong> bug per report.</li>
+                        <li>Always test the latest available build.</li>
+                        <li>State useful facts, not opinions or complaints.</li>
+                        <li>Flag security/privacy vulnerabilities as non-public.</li>
+                        <br>
+                        <li>Follow your project bug reporting guidelines instead of these!</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Writing a Good Bug Report</h2>
+                        <ul>
+                            <li>Summary</li>
+                            <li>Description</li>
+                            <li>Steps to Reproduce</li>
+                            <li>Actual Results</li>
+                            <li>Expected Results</li>
+                            <li>Reduced Test Case</li>
+                            <li>Version, Platform and OS</li>
+                            <li>Crash data and/or Screenshot</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Summary</h2>
+                        <ul>
+                            <li>Be precise:</li>
+                            <p>
+                                Explain the bug in clear and specific terms.
+                                <br>
+                                Prepend "[REG]" to the summary for a regression bug.
+                            </p>
+                            <li>Bad:</li>
+                            <p>
+                                "Drag Crash"
+                            </p>
+                            <li>Good:</li>
+                            <p>
+                                "Drag-selecting any page crashes Mac builds in NSGetFactory"
+                            </p>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Description/Overview</h2>
+                        <ul>
+                            <li>Goal:</li>
+                            <p>
+                                Explain the bug to the developer with a more detailed explanation.
+                            </p>
+                            <li>Tips:</li>
+                            <p>
+                                State the problem behavior.
+                                <br>
+                                Be as specific as possible.
+                            </p>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Steps to Reproduce</h2>
+                        <ul>
+                            <li>Steps:</li>
+                            <p>
+                                Identify the simplest steps needed to reproduce the bug.
+                            </p>
+                            <li>Simple case:</li>
+                            <ol>
+                                <li>Load the attached test case in Browser XYZ</li>
+                            </ol>
+                            <li>Complex case:</li>
+                            <ol>
+                                <li>Load the attached test case in Browser XYZ</li>
+                                <li>Scroll to the bottom of the page</li>
+                                <li>Click the link</li>
+                                <li>Press tab to navigate links</li>
+                            </ol>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Results</h2>
+                        <ul>
+                            <li>Goal:</li>
+                            <p>
+                                Show developer what is wrong.
+                            </p>
+                            <li>Actual Results:</li>
+                            <p>
+                                Describe what actually happened.
+                            </p>
+                            <li>Expected Results:</li>
+                            <p>
+                                Describe what should have happened.
+                            </p>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Reduced Test Case</h2>
+                        <ul>
+                            <li>Goal:</li>
+                            <p>
+                                Pinpoint the bug.
+                            </p>
+                            <li>Reducing Test Cases:</li>
+                            <p>
+                                Rip out everything in the page that isn't required to reproduce the bug.
+                            </p>
+                            <li>Variant Test Cases:</li>
+                            <p>
+                                Try variations on the test case to find related situations that also trigger the bug.
+                            </p>
+                            <li>Attach all files:</li>
+                            <p>
+                                Web pages might change or disappear. Attachments do not.
+                            </p>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Environment</h2>
+                        <h3>Version, Platform and OS</h3>
+                        <p>
+                            Select the software version, the platform and the OS version that this bug occurred on.
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Additional Information</h2>
+                        <p>
+                            Crash data (backtrace), Screenshot, ...
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Sample Bug Report</h2>
+                        <ul>
+                            <p>
+                                <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=43220">Mozilla Bug #43220</a>:
+                            </p>
+                            <p>
+                                Summary:
+                                <br>
+                                <small>
+                                    [CASCADE]author !important rules override user !important rules in user.css
+                                </small>
+                                <br>
+                                Overview:
+                                <br>
+                                <small>
+                                    !important style rules in the author stylesheet override !important style
+                                    rules in the user stylesheet ([profile]/chrome/user.css); a direct
+                                    contradiction of the CSS spec (CSS2:6.4)
+                                </small>
+                                <br>
+                                Steps to Reproduce:
+                                <br>
+                                <small>
+                                    1.) Copy 'Sample user.css' to the 'chrome' subdirectory in your profile
+                                        directory for Mozilla. Rename it to 'user.css'.
+                                    <br>
+                                    2.) View 'Testcase' in Mozilla.
+                                    <br>
+                                    * Both to be attached shortly
+                                </small>
+                                <br>
+                                Tested with build id=2000061720 on Windows 2000
+                            </p>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Sample Bug Report</h2>
+                        <ul>
+                            <p>
+                                <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=17686">W3C Bug #17686</a>:
+                            </p>
+                            <p>
+                                Summary:
+                                <br>
+                                <small>
+                                    Audio tests use video element
+                                </small>
+                                <br>
+                                Description:
+                                <br>
+                                <small>
+                                    Below audio tests use &ltvideo&gt element:
+                                    <br>
+                                    <br>approved/audio/event_canplay.html
+                                    <br>approved/audio/event_canplaythrough.html
+                                    <br>approved/audio/event_loadeddata.html
+                                    <br>approved/audio/event_loadedmetadata.html
+                                    <br>approved/audio/event_loadstart.html
+                                    <br>approved/audio/event_order_canplay_canplaythrough.html
+                                    <br>approved/audio/event_order_canplay_playing.html
+                                    <br>approved/audio/event_order_loadedmetadata_loadeddata.html
+                                    <br>approved/audio/event_order_loadstart_progress.html
+                                    <br>approved/audio/event_pause.html
+                                    <br>approved/audio/event_play.html
+                                    <br>approved/audio/event_playing.html
+                                    <br>approved/audio/event_progress.html
+                                </small>
+                            </p>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Bug Life Cycle</h2>
+                        <p>
+                            <i><a href="https://www.w3.org/Bugs/Public/page.cgi?id=fields.html#status">Bugzilla Bug Status</a></i>
+                        </p>
+                        <img src="bug-life-cycle.png" />
+                    </section>
+                    <section>
+                        <h2>Bug Triage</h2>
+                        <ul>
+                            <p>
+                                Bug Triage is a process to:
+                            </p>
+                            <small>
+                                <li>Ensure bug report completeness.</li>
+                                <li>Analyze and move bug to proper component if needed.</li>
+                                <li>Set Assignee of bug report to proper bug owner.</li>
+                                <li>Set appropriate bug priority.</li>
+                                <li>Adjust bug severity properly (initially set by bug reporter).</li>
+                                <li>Resolve obvious invalid, duplication, wontfix bugs, etc.</li>
+                            </small>
+                            <p>
+                                Bug Triage Team:
+                            </p>
+                            <small>
+                                <li>A small team works on bug triage, which could be experienced developer, distribution engineer or QA.</li>
+                            </small>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Test Case Bugs</h2>
+                    <ul>
+                        <li><a href="https://test.csswg.org/shepherd/">https://test.csswg.org/shepherd/</a></li>
+                        <li><a href="mailto:public-html-testsuite@w3.org">public-html-testsuite@w3.org</a></li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Acknowledgements</h2>
+                    <ol>
+                        <li>Elika J. Etemad, <a href="http://fantasai.inkedblade.net/style/talks/filing-good-bugs/">How to File a Good Bug Report</a></li>
+                        <li>Eli Goldberg and Jan Leger, <a href="http://web.archive.org/web/20000302035824/http://www.mozilla.org/quality/bug-writing-guidelines.html">bug writing guidelines</a></li>
+                        <li>Hakim El Hattab, <a href="https://github.com/hakimel/reveal.js">reveal.js</a></li>
+                    </ol>
+                </section>
+
+            </div>
+            
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/zoom-js/zoom.js', condition: function() { return !!document.body.classList; } },
+                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                    { src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } }
+                ]
+            });
+            
+        </script>
+
+    </body>
+</html>
