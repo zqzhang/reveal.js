@@ -1,0 +1,254 @@
+<!doctype html>  
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        
+        <title>CSS Test Infrastructure</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>CSS Test Infrastructure</h1>
+                    <p>
+                        <i><a href="mailto:elva.fu@intel.com">Elva Fu</a>, Intel China</i>
+                    </p>
+                    <p>
+                        <i><a href="mailto:peter.linss@hp.com">Peter Linss</a>, HP, CSS WG Co-Chair</i>
+                    </p>
+                    <p>
+                        <i><a href="http://fantasai.inkedblade.net/">Elika J. Etemad (fantasai)</a>, Mozilla Project, W3C CSS WG</i>
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Overview</h2>
+                    <ul>
+                        <li> Test Metadata </li>
+                        <li>CSS Test Repository </li>
+                            <ul>
+                            <li><tt>Version Control -  Mercurial </tt></li>
+                            <li><tt>Repository Layout </tt></li>
+                            <li><tt>View Repository Online </tt></li>
+                            </ul>
+                        <li>Test Suite Manager - Shepherd </li>
+                        <li>Build System </li>
+                        <li>Test Harness </li>
+                        <li>Demo</li>
+                    </ul>
+                </section>
+                
+                <!-- Example of nested vertical slides -->
+                <section>
+                    <h2>Test Metadata</h2>
+                    <ul>
+                        <li> Information about test </li>                              
+                        <ul>
+                            <li><tt>What specification section is being tested </tt></li>                
+                            <li><tt>Description of what the test is doing </tt></li>
+                            <li><tt>Author contact </tt></li>
+                        </ul>
+                        <li> Processed by tools </li>
+                        <li> Stored inside test when possible </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Template</h2>
+                    <pre><code contenteditable>
+&lt!DOCTYPE html&gt
+&lthtml&gt
+ &lthead&gt
+  &lttitle&gtCSS Test: SCOPE OF TEST&lt/title&gt
+  &ltlink rel="author" title="NAME_OF_AUTHOR" href="mailto:EMAIL OR http://CONTACT_PAGE"&gt
+  &ltlink rel="help" href="RELEVANT_SPEC_SECTION"&gt
+  &ltmeta name="flags" content="TOKENS"&gt
+  &ltmeta name="assert" content="TEST ASSERTION"&gt
+  &ltstyle&gt
+   CSS FOR TEST
+  &lt/style&gt
+ &lt/head&gt
+ &ltbody&gt
+  CONTENT OF TEST
+ &lt/body&gt
+&lt/html&gt
+                    </code></pre>
+                    <p>
+                        <i><a href="http://wiki.csswg.org/test/format#template-for-new-tests">http://wiki.csswg.org/test/format#template-for-new-tests</a></i>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Test Repository: Version Control -  Mercurial</h2>
+                    <ul> 
+                        <li>hg clone :</li>
+                        <small>Download copy of repository.</small>
+                        <li>hg commit :</li>
+                        <p><small>Save your changes as a changeset with a checkin comment describing changes.</small></p>
+                        <li>hg push  :</li>
+                        <p><small>Share your changeset as a checkin to the master repository.</small></p>
+                        <li>hg pull --update or hg pull --rebase  :</li>
+                        <p><small>Download others' updates into your copy. Do this before you commit!</small></p>
+                        <li>hg merge  :</li>
+                        <p><small>Simultaneous changesets: need to merge branches.</small></p>
+                        <p>
+                            Read the details at 
+                            <i><a href="http://wiki.csswg.org/tools/hg">http://wiki.csswg.org/tools/hg</a></i>
+                        </p>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Test Repository: Repository Layout </h2>
+                    Approved tests:
+                    <p>approved/ </p> 
+                       <ul>{spec}/ </ul> </br>
+                           <p><ul><tt>src/</tt></ul></p>
+                    
+                    Tests under development:
+                    <p>contributors/ </p>
+                       <ul>{name}/ </ul> </br>
+                           <ul><tt>incoming/</tt></ul></br>
+                            <ul><tt>submitted/</tt></ul></br>
+                
+                </section>
+
+                <section>
+                    <h2> Test Repository: View Repository Online  </h2>
+
+                    <p>
+                        <i><a href="http://hg.csswg.org/test/">http://hg.csswg.org/test/</a></i>
+                    </p>
+
+                </section>
+
+                <section>
+                    <h2> CSS Test Suite Manager: Shepherd  </h2>
+        
+                    <ul>
+                        <li>General management tool for test repository</li>
+                        <ul>
+                            <li><tt>Integrated with Mercurial</tt></li>
+                            <li><tt>Understands Test Metadata</tt></li>
+                            <li><tt>Performs automatic basic checking of tests</tt></li>
+                            <li><tt>Provides searches on metadata</tt></li>
+                            <li><tt>Bug tracker / test approval</tt></li>
+                            <li><tt>More to come...</tt></li>
+                        </ul>
+                        <li><a href="http://test.csswg.org/shepherd/">http://test.csswg.org/shepherd/</a></li>
+
+                    </ul>
+
+                </section>
+
+                <section>
+                    <h2> Build System  </h2>
+
+                    <ul>
+                        Generates final test suites
+                        <li>Gathers tests from submitted/ directories</li>
+                        <li>Creates specification based test suites</li>
+                        <li>Creates human readable index pages</li>
+                        <li>Creates machine readable manifests</li>
+                        <li>Performs format conversion</li>
+                        <ul>
+                            <li><tt>HTML . XHTML . XHTML-Print</tt></li>
+                        </ul>
+                        <li>Injects vendor prefixes</li>
+                        <li>Runs nightly</li>
+
+                    </ul>
+
+                </section>
+
+                <section>
+                    <h2> Test Harness  </h2>
+                    <ul>
+                        Where tests are run and results gathered
+                        <li>Presents built test suites</li>
+                        <li>Gathers results by user agent</li>
+                        <li>Generates implementation reports</li>
+                        <li>Presents tests in order where results are needed most</li>
+                        <li>Generates live specification annotations</li>
+                        <p><i><a href="http://test.csswg.org/harness">http://test.csswg.org/harness</a></i></p>
+                    </ul>
+
+                </section>
+
+                <section>
+                    <h2> Demo  </h2>
+                </section>
+
+                <section>
+                    <h2> More information  </h2>
+
+                    <p>
+                        <i><a href="http://wiki.csswg.org/">http://wiki.csswg.org/</a></i>
+                    </p>
+                    <p>
+                        <i><a href="public-css-testsuite@w3.org">public-css-testsuite@w3.org</a></i>
+                    </p>
+
+                </section>
+
+            </div>
+            
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+            
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/zoom-js/zoom.js', condition: function() { return !!document.body.classList; } },
+                    { src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                    { src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } }
+                ]
+            });
+            
+        </script>
+
+    </body>
+</html>
