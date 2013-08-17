@@ -40,18 +40,16 @@
         <section>
           <h1>W3C Test Case and Bug Report</h1>
           <p>
-            <i>Zhiqiang Zhang (<a href="https://github.com/zqzhang" class="url Nickname">zqzhang</a>), <a class="org" href="http://www.intel.com/">Intel China</a></i>
+            <i>Zhiqiang Zhang (<a href="https://github.com/zqzhang" class="url Nickname">zqzhang</a>), <a class="org" href="http://www.intel.com/">Intel</a></i>
           </p>
         </section>
 
         <section>
           <h2>Agenda</h2>
           <ul>
-            <li>How to write a spec-based test case?</li>
-            <ul>
-              <li>Reftest test case</li>
-              <li>Script test case</li>
-            </ul>
+            <li>How to write a manual test case?</li>
+            <li>How to write a Reftest?</li>
+            <li>How to write a Script test?</li>
             <li>How to file a good bug report?</li>
           </ul>
         </section>
@@ -59,102 +57,22 @@
         <!-- Reftest -->
         <section>
           <section>
-            <h2>Reftest Test Case Sample</h2>
-            <img src="support/reftest-opera12.png">
-            <img src="support/reftest-opera12-ref.png">
+            <h2>Start from Example in Spec</h2>
+            <img src="support/reftest-spec-example.png">
+            <p>Example 14.3 in CSS3 <a href="http://www.w3.org/TR/css3-background/#the-background-size">background-size</a></p>
           </section>
           <section>
-            <h2>Reftest Test Case Sample - Fail</h2>
-            <img src="support/reftest-chrome28.png">
-            <img src="support/reftest-firefox23.png">
+            <h2>To Checkpoints</h2>
+            <ul>
+              <li><code>background-size: length auto</code>:
+              <br>scale the image height to 'length' and width to (1) the image's intrinsic ratio and the size of height, or (2) the image's intrinsic size, or (3) 100%</li>
+              <li><code>background-repeat: round repeat</code>:
+              <br>scale the image in width so that it fits a whole number of times in the background positioning area</li>
+              <li><code>round</code> for width and <code>auto</code> for height, so height is scaled to keep the image's original aspect ratio</li>
+            </ul>
           </section>
           <section>
-            <h2>Reftest Test Case Sample - Test Source</h2>
-            <pre><code data-trim contenteditable>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;CSS Backgrounds and Borders Test: background-size '52px auto' with background-repeat 'round repeat'&lt;/title&gt;
-    &lt;link rel="author" title="Intel" href="http://www.intel.com"&gt;
-    &lt;link rel="reviewer" title="G¨¦rard Talbot" href="http://www.gtalbot.org/BrowserBugsSection/css21testsuite/"&gt; &lt;!-- 2012-11-15 --&gt;
-    &lt;link rel="help" href="http://www.w3.org/TR/css3-background/#the-background-size" title="3.9. Sizing Images: the 'background-size' property"&gt;
-    &lt;link rel="help" href="http://www.w3.org/TR/css3-background/#the-background-repeat" title="3.4. Tiling Images: the 'background-repeat' property"&gt;
-    &lt;link rel="match" href="reference/background-size-029-ref.xht"&gt;
-
-    &lt;meta name="flags" content="image"&gt;
-    &lt;meta name="assert" content="Check if 'background-size' is '52px auto' and 'background-repeat' is 'round repeat', then the width is first rescaled to from 100px to 52px and then rescaled to 60px due to 'round' and the height of the corresponding background image is rescaled from 100px to 60px (to keep the original image aspect ratio) and then repeated vertically."&gt;
-    &lt;style&gt;
-        div {
-            background-color: red;
-            background-image: url(support/100x100-blue-and-orange.png);
-            background-repeat: round repeat;
-            background-size: 52px auto;
-            height: 180px;
-            width: 180px;
-            
-            /* 
-            Background positioning area is 180px wide by 180px tall.
-            The width of the background image is 52px.
-            But, because background-repeat is set to round repeat, the
-            width is rescaled as following:
-            Newest width = 180px / (round [180px / 52px]);
-            Newest width = 180px / (round [3.46]);
-            Newest width = 180px / (3); 
-            Newest width = 60px;                      
-
-            Then the height is rescaled to from 100px to 60px to keep 
-            the original aspect ratio.
-            */
-        }
-    &lt;/style&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;p&gt;Test passes if there is 3 rows of 3 blue-and-orange squares and if there is &lt;strong&gt;no partially&lt;/strong&gt; displayed squares and &lt;strong&gt;no red&lt;/strong&gt;.&lt;/p&gt;
-
-    &lt;div&gt;&lt;/div&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-            </code></pre>
-            <p><a href="http://test.csswg.org/source/contributors/intel/submitted/css3-background/background-size-029.html">background-size-029.html</a></p>
-          </section>
-          <section>
-            <h2>Reftest Test Case Sample - Reference Source</h2>
-            <pre><code data-trim contenteditable>
-
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-
- &lt;head&gt;
-
-  &lt;title&gt;CSS Reftest Reference&lt;/title&gt;
-
-  &lt;link rel="author" title="G¨¦rard Talbot" href="http://www.gtalbot.org/BrowserBugsSection/css21testsuite/" /&gt;
-
-  &lt;style type="text/css"&gt;&lt;![CDATA[
-  img
-  {
-  height: 60px;
-  vertical-align: top;
-  width: 60px;
-  }
-  ]]&gt;&lt;/style&gt;
-
- &lt;/head&gt;
-
- &lt;body&gt;
-
-  &lt;p&gt;Test passes if there is 3 rows of 3 blue-and-orange squares and if there is &lt;strong&gt;no partially&lt;/strong&gt; displayed squares and &lt;strong&gt;no red&lt;/strong&gt;.&lt;/p&gt;
-
-  &lt;div&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;br /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;br /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;img src="../support/100x100-blue-and-orange.png" alt="Image download support must be enabled" /&gt;&lt;/div&gt;
-
- &lt;/body&gt;
-&lt;/html&gt;
-            </code></pre>
-            <p><a href="http://test.csswg.org/source/contributors/intel/submitted/css3-background/reference/background-size-029-ref.xht">background-size-029-ref.html</a></p>
-          </section>
-          <section>
-            <h2>Reftest Test Case Template</h2>
+            <h2>Copy Test Case Template</h2>
             <pre><code data-trim contenteditable>
 &lt;!DOCTYPE html&gt;
 &lt;title&gt;[Test Area]: [Title/Scope of Test]&lt;/title&gt;
@@ -177,7 +95,34 @@
             <p><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/test-templates.md#reftest-test-template">test-templates.md#reftest-test-template</a></p>
           </section>
           <section>
-            <h2>Reftest Reference Template</h2>
+            <h2>To Test Case: Style</h2>
+            <img src="support/reftest-style.png">
+          </section>
+          <section>
+            <h2>To Test Case: Pass Condition</h2>
+            <img src="support/reftest-pass-condition.png">
+          </section>
+          <section>
+            <h2>Try Test Case on Browsers</h2>
+            <img src="support/reftest-opera12.png">
+          </section>
+          <section>
+            <h2>Try Test Case on Browsers</h2>
+            <img src="support/reftest-chrome28.png">
+            <img src="support/reftest-firefox23.png">
+          </section>
+          <section>
+            <h2>Reference File</h2>
+            <ul>
+              <p>The reference file should look exactly like the test file, except that the code behind it is different.</p>
+              <br>
+              <li>The <code>assert</code> metadata is taken out.</li>
+              <li>The <code>title</code> is generic, as this file can and may be shared among multiple tests</li>
+              <li>The <code>match</code> (or <code>mismatch</code>) metadata not necessary</li>
+              <li>The markup that created the actual test data is different: here, the same effect is created with very mundane, dependable technology.</li>
+          </section>
+          <section>
+            <h2>Copy Reference File Template</h2>
             <pre><code data-trim contenteditable>
 &lt;!DOCTYPE html&gt;
 &lt;title&gt;[Test Area] Reference File&lt;/title&gt;
@@ -194,7 +139,66 @@
             <p><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/test-templates.md#reftest-ref-template">test-templates.md#reftest-ref-template</a></p>
           </section>
           <section>
-            <h2>Vendor Prefixes</h2>
+            <h2>Try Reference File on Browsers</h2>
+            <img src="support/reftest-opera12-ref.png">
+            <img src="support/reftest-opera12.png">
+          </section>
+          <section>
+            <h2>Reftest</h2>
+            <ul>
+              <p><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/reftests.md#definition">Definition</a>:</p>
+              <li>A reftest is a test that compares the visual output of one file (the test case) with the output of one or more other files (the references).</li>
+              <p><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/reftests.md#components">Components</a>:</p>
+              <li>Test file: <a href="http://test.csswg.org/source/contributors/intel/submitted/css3-background/background-size-029.html">background-size-029.html</a></li>
+              <li>Reference file: <a href="http://test.csswg.org/source/contributors/intel/submitted/css3-background/reference/background-size-029-ref.xht">background-size-029-ref.html</a></li>
+              <li>Comparison:</li>
+              <pre><code data-trim contenteditable>
+&lt;link rel="match" href="reference/background-size-029-ref.xht"&gt;
+              </code></pre>
+            </ul>
+          </section>
+          <section>
+            <h2>Continue to Improve the Test</h2>
+            <img src="support/reftest-commits.png">
+            <p><a href="http://hg.csswg.org/test/log/923e1f7bf2c6/contributors/intel/submitted/css3-background/background-size-029.html">Commits to background-size-029.html</a></p>
+          </section>
+          <section>
+            <p>background-size-029.html: <a href="http://hg.csswg.org/test/file/1d2d1d9ae507/contributors/intel/submitted/css3-background/background-size-029.html">approved</a> v.s. <a href="http://hg.csswg.org/test/file/d266aff0a27a/contributors/intel/submitted/css3-background/background-size-029.html">initial</a></p>
+            <img src="support/reftest-compare-metadata.png">
+          </section>
+          <section>
+            <img src="support/reftest-compare-style.png">
+          </section>
+          <section>
+            <img src="support/reftest-compare-body.png">
+          </section>
+        </section>
+
+        <!-- Tips -->
+        <section>
+          <section>
+            <h2>Tests to avoid: long test</h2>
+            <ul>
+              <li>Manual test</li>
+              <li>Need to scroll to complete testing</li>
+              <li><a href="http://www.hixie.ch/tests/evil/mixed/lineheight3.html">Example</a> of a test that is too long</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Tests to avoid: "this should be red" test</h2>
+            <ul>
+              <li>In the W3C <a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/test-style-guidelines.md">test style guidelines</a> document, <span style="background-color:red">red</span> indicates a bug</li>
+              <li>Nothing should ever be <span style="background-color:red">red</span> in a test.</li>
+              <li>One exception: the test for the <span style="color:red">'red'</span> value for the color properties!</li>
+            </li>
+          </section>
+          <section>
+            <h2>Tests to avoid: unobvious test</h2>
+            <img src="support/unobvious-test.png">
+            <p>The last <a href="http://www.w3.org/Style/CSS/Test/CSS1/current/sec525.htm">subtest on this page</a> shows this problem.</p>
+          </section>
+          <section>
+            <h2>Tips: vendor prefix</h2>
             <ul>
               <li>You may need to add a vendor prefix to the CSS property you're testing</li>
               <li>If the prefix is necessary, your test will appear to fail without it</li>
@@ -206,52 +210,38 @@
         <!-- Script test -->
         <section>
           <section>
-            <h2>Script Test Case Sample</h2>
-            <img src="support/script-test-opera12.png">
-            <img src="support/script-test-firefox23.png">
-          </section>
-          <section>
-            <h2>Script Test Case Sample - Test Source</h2>
+            <h2>What is Script Test?</h2>
             <pre><code data-trim contenteditable>
-&lt;!DOCTYPE html&gt;
-&lt;meta charset=utf-8&gt;
-&lt;title&gt;Blob constructor&lt;/title&gt;
-&lt;link rel=help href="http://dev.w3.org/2006/webapi/FileAPI/#constructorBlob"&gt;
-&lt;link rel=help href="http://dev.w3.org/2006/webapi/WebIDL/#es-union"&gt;
-&lt;link rel=help href="http://dev.w3.org/2006/webapi/WebIDL/#es-dictionary"&gt;
 &lt;script src="/resources/testharness.js"&gt;&lt;/script&gt;
 &lt;script src="/resources/testharnessreport.js"&gt;&lt;/script&gt;
-&lt;script src="../support/Blob.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="/resources/testharness.css"&gt;
+
 &lt;div id="log"&gt;&lt;/div&gt;
-&lt;script&gt;
-test(function() {
-  assert_true("Blob" in window, "window should have a Blob property.");
-  assert_equals(Blob.length, 2, "Blob.length should be 2.");
-  assert_true(Blob instanceof Function, "Blob should be a function.");
-}, "Blob interface object");
-
-// Step 1.
-test(function() {
-  var blob = new Blob();
-  assert_true(blob instanceof Blob);
-  assert_equals(blob.size, 0);
-  assert_equals(blob.type, "");
-}, "no-argument Blob constructor");
-test(function() {
-  var blob = Blob();
-  assert_true(blob instanceof Blob);
-  assert_equals(blob.size, 0);
-  assert_equals(blob.type, "");
-}, "no-argument Blob constructor without 'new'");
-
-...
-
-&lt;/script&gt;
             </code></pre>
-            <p><a href="http://w3c-test.org/web-platform-tests/master/FileAPI/tests/submissions/Ms2ger/Blob-constructor.html">Blob-constructor.html</a></p>
+            <p><a href="https://github.com/w3c/testharness.js/blob/master/testharness.js">testharness.js</a></p>
+            <p><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/testharness-documentation.md">testharness-documentation.md</a></p>
           </section>
           <section>
-            <h2>Script Test Template: Shared Metadata</h2>
+            <h2>From IDL Fragment in Spec</h2>
+            <img src="support/script-test-idl.png">
+            <p><a href="http://www.w3.org/TR/FileAPI/#blob">Blob Interface</a> in FileAPI</p>
+          </section>
+          <section>
+            <h2>And Description in the Spec</h2>
+            <img src="support/script-test-spec.png">
+            <p><a href="http://www.w3.org/TR/FileAPI/#constructorBlob">Blob Constructor</a> in FileAPI</p>
+          </section>
+          <section>
+            <h2>To Checkpoints</h2>
+            <ul>
+              <p>blob = Blob()</code>:</p>
+              <li>blob instanceof Blob</li>
+              <li>blob.size === 0</li>
+              <li>blob.type === ""</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Copy Script Test Template</h2>
             <pre><code data-trim contenteditable>
 &lt;!DOCTYPE html&gt;
 &lt;title&gt;[Test Area]: [Title/Scope of Test]&lt;/title&gt;
@@ -277,85 +267,44 @@ test(function() {
             <p><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/test-templates.md#script-test-shared-metadata">test-templates.md#script-test-shared-metadata</a></p>
           </section>
           <section>
-            <h2>Script Test Template: Per-Test Metadata</h2>
-            <pre><code data-trim contenteditable>
-&lt;!DOCTYPE html&gt;
-&lt;title&gt;[Test Area]&lt;/title&gt;
-&lt;script src="/resources/testharness.js"&gt;&lt;/script&gt;
-&lt;script src="/resources/testharnessreport.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="/resources/testharness.css"&gt;
-&lt;div id="log"&gt;&lt;/div&gt;
-&lt;script&gt;
-
-test(function () {
-        [body of test function - must include at least one assert*() 
-        function]
-    }
-,  [Test Name]
-,   {
-        help:   [spec_link_1, 
-                 spec_link_2
-                ]
-    ,   assert: [Test Assertion]
-    ,   author: [Author Name &lt;author@email.com]"
-    }
-);
-
-/* Include as many test() functions as you need */
-
-&lt;/script&gt;
-            </code></pre>
-            <p><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/test-templates.md#script-test-pertest-metadata">test-templates.md#script-test-pertest-metadata</a></p>
+            <h2>To Test Case</h2>
+            <p><a href="http://w3c-test.org/web-platform-tests/master/FileAPI/tests/submissions/Ms2ger/Blob-constructor.html">Blob-constructor.html</a></p>
+            <img src="support/script-test-code.png">
+          </section>
+          <section>
+            <h2>Try Test Case on Browsers</h2>
+            <img src="support/script-test-opera12.png">
           </section>
         </section>
 
         <!-- Bug report -->
         <section>
           <section>
-            <h2>Bug Report Sample</h2>
+            <h2>Where to Report a Bug?</h2>
             <ul>
-              <p>
-                <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=43220">Mozilla Bug #43220</a>:
-              </p>
-              <p>
-                Summary:
-                <br>
-                <small>
-                  [CASCADE]author !important rules override user !important rules in user.css
-                </small>
-                <br>
-                Overview:
-                <br>
-                <small>
-                  !important style rules in the author stylesheet override !important style
-                  rules in the user stylesheet ([profile]/chrome/user.css); a direct
-                  contradiction of the CSS spec (CSS2:6.4)
-                </small>
-                <br>
-                Steps to Reproduce:
-                <br>
-                <small>
-                  1.) Copy 'Sample user.css' to the 'chrome' subdirectory in your profile
-                    directory for Mozilla. Rename it to 'user.css'.
-                  <br>
-                  2.) View 'Testcase' in Mozilla.
-                  <br>
-                  * Both to be attached shortly
-                </small>
-                <br>
-                Tested with build id=2000061720 on Windows 2000
-              </p>
+              <li>Test bugs:</li>
+              <ul>
+                <li><a href="https://github.com/w3c/web-platform-tests/issues">https://github.com/w3c/web-platform-tests/issues</a></li>
+                <li><a href="https://test.csswg.org/shepherd/">https://test.csswg.org/shepherd/</a></li>
+              </ul>
+              <li>Browser bugs:</li>
+              <ul>
+                <li><a href="https://bugzilla.mozilla.org/">Mozilla Bugzilla</a>, <a href="https://bugs.webkit.org/">WebKit Bugzilla</a>, <a href="http://crbug.com/">Chrome Bugs</a>, <a href="http://connect.microsoft.com/IE">IE Bugs</a>, <a href="http://pcbbs.baidu.com/forum.php?gid=1">Baidu Bugs</a>, <a href="https://bugs.tizen.org/">Tizen Web Runtime Bugs</a></li>
+                <li>Other browsers - please check vendor's website for bug reporting information</li>
+              </ul>
+              <li>Spec bugs:</li>
+              <ul>
+                <li><a href="https://www.w3.org/Bugs/Public/">W3C Bugzilla</a></li>
+                <li><a href="http://lists.w3.org/">W3C mailing list</a></li>
+              </ul>
             </ul>
           </section>
           <section>
-            <h2>Why Report Bugs?</h2>
+            <h2>Bug Reporting General Guidelines</h2>
             <ul>
-              <li>To get the bugs fixed!</li>
-              <br>
-              <p>Bug Reporting General Guidelines:</p>
               <li>Avoid duplicates: <strong>Search before you file!</strong></li>
-              <li><strong>One</strong> bug per report.</li>
               <li>Always test the latest available build.</li>
+              <li><strong>One</strong> bug per report.</li>
               <li>State useful facts, not opinions or complaints.</li>
               <li>Flag security/privacy vulnerabilities as non-public.</li>
               <br>
@@ -376,37 +325,20 @@ test(function () {
             </ul>
           </section>
           <section>
-            <h2>Browser Issue Trackers</h2>
-            <ul>
-              <li>Mozilla's bugzilla <a href="https://bugzilla.mozilla.org/">https://bugzilla.mozilla.org/</a></li>
-              <li>WebKit bugs<a href="https://bugs.webkit.org/">https://bugs.webkit.org/</a></li>
-              <li>Chrome bugs <a href="https://bugs.webkit.org/">https://bugs.webkit.org/</a></li>
-              <li>IE feedback <a href="http://connect.microsoft.com/IE">http://connect.microsoft.com/IE</a></li>
-              <br>
-              <li>Baidu <a href="http://pcbbs.baidu.com/forum.php?gid=1">http://pcbbs.baidu.com/forum.php?gid=1</a></li>
-              <br>
-              <li>Tizen <a href="https://bugs.tizen.org/">https://bugs.tizen.org/</a></li>
-              <br>
-              <li>Other browsers - please check vendor's website for bug reporting information</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Specification and Test Case Issue Trackers</h2>
-            <ul>
-              <li>W3C's bugzilla <a href="https://www.w3.org/Bugs/Public/">https://www.w3.org/Bugs/Public/</a></li>
-              <li>W3C mailing list <a href="http://lists.w3.org/">http://lists.w3.org/</a></li>
-              <br>
-              <li>web-platform-tests issues <a href="https://github.com/w3c/web-platform-tests/issues">https://github.com/w3c/web-platform-tests/issues</a></li>
-              <br>
-              <li>CSS Test Suite <a href="https://test.csswg.org/shepherd/">https://test.csswg.org/shepherd/</a></li>
-            </ul>
+            <h2><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=869878">Bug Report Sample</a></h2>
+            <img src="support/bug-example.png">
           </section>
         </section>
 
         <section>
-          <h2>Reading Source Code!</h2>
+          <h2>References</h2>
           <ul>
             <li><a href="https://github.com/w3c/testtwf-website">https://github.com/w3c/testtwf-website</a></li>
+            <ul>
+              <li><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/reftests.md">reftests.md</a></li>
+              <li><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/testharness-documentation.md">testharness-documentation.md</a></li>
+              <li><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/bugreporting.md">bugreporting.md</a></li>
+            </ul>
             <br>
             <li><a href="https://github.com/w3c/web-platform-tests">https://github.com/w3c/web-platform-tests</a></li>
             <br>
@@ -419,10 +351,6 @@ test(function () {
           <ul>
             <li>Rebecca Hauck & Jacob Goldstein, <a href="http://adobe.github.io/web-platform/presentations/test-the-web-forward-tutorial/index.html">Learn how to create a W3C Ref and JS tests</a></li>
             <li>Elika J. Etemad, <a href="http://fantasai.inkedblade.net/style/talks/filing-good-bugs/">How to File a Good Bug Report</a></li>
-            <br>
-            <li><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/reftests.md">reftests.md</a></li>
-            <li><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/testharness-documentation.md">testharness-documentation.md</a></li>
-            <li><a href="https://github.com/w3c/testtwf-website/blob/gh-pages/docs/bugreporting.md">bugreporting.md</a></li>
             <br>
             <li>Gerard Talbot, <a href="http://lists.w3.org/Archives/Public/public-css-testsuite/2012Nov/0037.html">background-size-[025-029]: available, improved replacements</a></li>
             <li>Hakim El Hattab, <a href="https://github.com/hakimel/reveal.js">reveal.js</a></li>
