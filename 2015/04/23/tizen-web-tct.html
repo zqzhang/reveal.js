@@ -25,37 +25,266 @@
 <body>
 
 <div class="reveal">
-  <div class="slides">
+<div class="slides">
 
-    <section>
-      <h1>Tizen Web TCT</h1>
-      <p>
-        <i>Zhiqiang Zhang (<a href="https://github.com/zqzhang" class="url Nickname">zqzhang</a>), <a class="org" href="http://www.intel.com/">Intel</a></i>
-      </p>
-    </section>
+  <section>
+    <h1>Tizen Web TCT</h1>
+    <p>
+      <i>Zhiqiang Zhang (<a href="https://github.com/zqzhang" class="url Nickname">zqzhang</a>), <a class="org" href="http://www.intel.com/">Intel</a></i>
+    </p>
+  </section>
 
+  <section>
+    <h2>Agenda</h2>
+    <ul>
+      <li>Tizen Compliance: what and why?</li>
+      <li>Tizen Compliance Tests (TCT)</li>
+      <li>Web TCT Tools</li>
+      <li>Web TCT Tests</li>
+      <li>Web TCT Release and Testing</li>
+      <li>Tips</li>
+    </ul>
+  </section>
+
+  <section>
     <section>
-      <h2>Agenda</h2>
+      <h2>Tizen Compliance: Why?</h2>
       <ul>
-        <li>Tizen Compliance: what and why?</li>
-        <li>Tizen Compliance Tests (TCT)</li>
-        <li>Web TCT Tests</li>
-        <li>Web TCT Tools</li>
-        <li>Web TCT Release and Testing</li>
-        <li>Tips</li>
+        <p>
+          <a href="https://source.tizen.org/compliance">Tizen Compliance Program</a>
+        </p>
+        <li>ensures devices and applications work correctly together</li>
+        <li>provides a validation mechanism, certification</li>
+        <li>benefits to application developers, device implementers, carries, end users</li>
       </ul>
     </section>
-
     <section>
-      <h2><a href="https://source.tizen.org/compliance">Tizen Compliance Program</a></h2>
-
+      <h2>Tizen Compliance: What?</h2>
+      <ul>
+        <li>Tizen Compliance Specification (TCS)</li>
+        <li>Tizen Compliance Tests (TCT)</li>
+        <li>Tizen Compliance certification</li>
+      </ul>
     </section>
-
     <section>
-      <h2>Thanks</h2>
+      <h2>Tizen Profile</h2>
+      <p>A Tizen Profile describes the requirements for a category of Tizen devices that have a common application execution environment.</p>
+      <a href="https://source.tizen.org/sites/default/files/page/tizen-profiles-small.png">
+        <img src="../../../support/tizen-profiles-small.png">
+      </a>
     </section>
+  </section>
 
-  </div>
+   <section>
+    <section>
+      <h2>Tizen Compliance Tests (TCT)</h2>
+      <ul>
+        <p>
+          <a href="https://source.tizen.org/compliance/compliance-tests">Tizen Compliance Tests (TCT)</a>
+        </p>
+        <li>verify conformance to the Tizen Compliance Specification (TCS)</li>
+        <li>consist of Web TCT and Native TCT</li>
+        <li>Web TCT is a set of tools and test suites to test the web requirements defined in TCS</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Web TCT Workflow</h2>
+      <a href="https://source.tizen.org/sites/default/files/page/webtct_workflow.png">
+        <img src="../../../support/webtct_workflow.png">
+      </a>
+    </section>
+    <section>
+      <h2>Web TCT Architecture</h2>
+      <img src="../../../support/webtct_architecture.png">
+    </section>
+    <section>
+      <h2>Web TCT Projects</h2>
+      <ul>
+        <p>
+          Search "test/tct/web" at
+          <a href="https://review.tizen.org/gerrit/#/admin/projects/">review.tizen.org</a>
+        </p>
+        <li>test/tct/web/behavior</li>
+        <li>test/tct/web/manager</li>
+        <li>test/tct/web/shell</li>
+        <li>test/tct/web/utilities</li>
+        <li>test/tct/web/webapi</li>
+        <li>test/tct/web/webuifw</li>
+        <li>test/tct/web/wrt</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Web TCT Projects - More</h2>
+      <ul>
+        <p>
+          testkit related repositories at
+          <a href="https://github.com/testkit">github.com/testkit</a>
+        </p>
+        <li><a href="https://github.com/testkit/testkit-lite">testkit-lite</a></li>
+        <li><a href="https://github.com/testkit/testkit-stub">testkit-stub</a></li>
+        <li><a href="https://github.com/testkit/tinyweb">tinyweb</a></li>
+        <li><a href="https://github.com/testkit/webrunner">webrunner</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Web TCT Projects - Branch</h2>
+      <ul>
+        <p>
+          Most projects has 4 branches:
+        </p>
+        <li>master: for development or empty</li>
+        <li>tizen_2.2: for Tizen 2.2.1</li>
+        <li>tizen_2.3: for Tizen 2.3</li>
+        <li>tizen_3.0: for Tizen 3.0</li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2>Web TCT Tests</h2>
+      <ul>
+        <li>Web Test Suites cover
+          <a href="https://developer.tizen.org/dev-guide/2.3.0/org.tizen.web.apireference/html/device_api/device_api_cover.html">Tizen Web Device API</a>,
+          <a href="https://developer.tizen.org/dev-guide/2.3.0/org.tizen.gettingstarted/html/details/web_runtime_w.htm">Tizen Web Runtime</a>,
+          <a href="https://developer.tizen.org/dev-guide/2.3.0/org.tizen.web.apireference/html/w3c_api/w3c_api_cover.html">W3C/HTML5 and Supplementary API</a>,
+          <a href="https://developer.tizen.org/dev-guide/2.3.0/org.tizen.web.apireference/html/ui_fw_api/ui_fw_api_cover.html">Web UI Framework</a>,
+          device capability features,
+          and/or <a href="https://developer.tizen.org/profiles/vehicle-infotainment/developing-tizen-ivi/web-api-references/vehicle-apis">Vehicle API</a>.</li>
+        <li>Web TCT Behavior Test tool is used to test behavior of hardware and software features in interactive mode.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Tizen Web Device API Tests</h2>
+      <ul>
+        <li>tct-&ltspec&gt-tizen-tests</li>
+        <li>tct-namespace-tizen-tests</li>
+        <li>tct-privilege-tizen-tests</li>
+      </ul>
+      <pre><code>
+tct-alarm-tizen-tests/
++-- alarm
+    +-- support
+        +-- UnitTest-AlarmTest1
++-- resources
++-- webrunner
+      </code></pre>
+    </section>
+    <section>
+      <h2>W3C/HTML5 API Tests</h2>
+      <ul>
+        <li>tct-&ltspec&gt-css3-tests</li>
+        <li>tct-&ltspec&gt-html5-tests</li>
+        <li>tct-&ltspec&gt-w3c-tests</li>
+      </ul>
+      <pre><code>
+tct-2dtransforms-css3-tests/
++-- 2dtransforms
+    +-- csswg
++-- resources
++-- webrunner
+      </code></pre>
+    </section>
+    <section>
+      <h2>Supplementary API Tests</h2>
+      <ul>
+        <li>tct-&ltspec&gt-nonw3c-tests</li>
+      </ul>
+      <pre><code>
+tct-webgl-nonw3c-tests/
++-- resources
++-- webgl
+    +-- khronos
+        +-- resources
+    +-- support
+    +-- w3c
++-- webgl-py
+    +-- khronos
++-- webrunner
+      </code></pre>
+    </section>
+    <section>
+      <h2>Vehicle API Tests</h2>
+      <ul>
+        <li>webapi-vehicleinfo-ivi-tests</li>
+      </ul>
+      <pre><code>
+webapi-vehicleinfo-ivi-tests/
++-- resources
++-- vehicleinfo
+    +-- support
++-- webrunner
+      </code></pre>
+    </section>
+    <section>
+      <h2>Device Capability Features Tests</h2>
+      <ul>
+        <li>tct-capability-tests</li>
+        <li>tct-security-tcs-tests</li>
+      </ul>
+      <pre><code>
+tct-capability-tests/
++-- capability
+    +-- support
++-- resources
++-- webrunner
+      </code></pre>
+    </section>
+    <section>
+      <h2>Configure and Get Capability</h2>
+      <ul>
+        <li>tct-testconfig</li>
+        <li>tct-getcapabilities</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Web TCT Behavior Tests</h2>
+      <ul>
+        <li>tct-behavior-tests</li>
+      </ul>
+      <pre><code>
++-- css
+    +-- images
++-- js
+    +-- thirdparty
++-- res
+    +-- css
+    +-- font
+    +-- images
+    +-- js
+    +-- media
++-- tests
+    +-- 2D3DAnimation
+    +-- Accelerometer
+    +-- Alarm
+    +-- ...
+      </code></pre>
+    </section>
+    <section>
+      <h2>Test Framework and Runner</h2>
+      <ul>
+        <li>resources/: <a href="https://github.com/w3c/testharness.js">w3c/testharness.js</a></li>
+        <li>webrunner/: <a href="https://github.com/testkit/webrunner">testkit/webrunner</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Tests from Upstream</h2>
+      <ul>
+        <li>csswg/: <a href="https://github.com/w3c/csswg-test/">W3C CSS WG tests</a></li>
+        <li>w3c/: <a href="https://github.com/w3c/web-platform-tests/">W3C Web platform tests</a></li>
+        <li>w3c/: <a href="http://dev.w3.org/2006/waf/">W3C widgets tests</a></li>
+        <li>khronos/: <a href=" https://github.com/KhronosGroup/WebGL">Khronos WebGL conformance tests</a></li>
+        <li>blink/: <a href="https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/LayoutTests/">Blink layout tests</a></li>
+        <li>webkit/: <a href="http://trac.webkit.org/browser/trunk/LayoutTests/">WebKit layout tests</a></li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <h2>Thanks</h2>
+  </section>
+
+</div>
 </div>
 
 <script src="../../../lib/js/head.min.js"></script>
