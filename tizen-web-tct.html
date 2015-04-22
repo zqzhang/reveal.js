@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<title>Tizen Web TCT</title>
+
+<meta name="description" content="Transfer Tizen Web TCT to Samsung after 3 years coworking.">
+<meta name="presdate" content="20150423">
+<meta name="author" content="Zhiqiang Zhang" href="mailto:zhiqiang.zhang@intel.com">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="../styles/reveal.css">
+<link rel="stylesheet" href="../styles/beige.css" id="theme">
+
+<!-- For syntax highlighting -->
+<link rel="stylesheet" href="../styles/zenburn.css">
+
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <section>
+      <h1>Tizen Web TCT</h1>
+      <p>
+        <i>Zhiqiang Zhang (<a href="https://github.com/zqzhang" class="url Nickname">zqzhang</a>), <a class="org" href="http://www.intel.com/">Intel</a></i>
+      </p>
+    </section>
+
+    <section>
+      <h2>Agenda</h2>
+      <ul>
+        <li>Tizen Compliance: what and why?</li>
+        <li>Tizen Compliance Tests (TCT)</li>
+        <li>Web TCT Tests</li>
+        <li>Web TCT Tools</li>
+        <li>Web TCT Release and Testing</li>
+        <li>Tips</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><a href="https://source.tizen.org/compliance">Tizen Compliance Program</a></h2>
+
+    </section>
+
+    <section>
+      <h2>Thanks</h2>
+    </section>
+
+  </div>
+</div>
+
+<script src="../scripts/head.min.js"></script>
+<script src="../scripts/reveal.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      { src: '../scripts/classList.js', condition: function() { return !document.body.classList; } },
+      { src: '../scripts/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../scripts/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../scripts/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: '../scripts/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: '../scripts/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+  });
+
+</script>
+
+</body>
+</html>
+
