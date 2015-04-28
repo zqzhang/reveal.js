@@ -290,6 +290,28 @@ tct-capability-tests/
         <li>a centralized test repository for the <a href="http://crosswalk-project.org/">Crosswalk Project</a>,</li>
         <li>the code base for <a href="https://developer.tizen.org/profiles/vehicle-infotainment/tizen-ivi-compliance">Tizen 3.0 Compliance Tests for IVI (TCT)</a>,</li>
         <li>an upstream project for upcoming Tizen 3.0 Compliance Tests for other profiles, e.g. Mobile, Wearable, TV profiles.</li>
+        <p>Here only care about these related to TCT.</p>
+      </ul>
+    </section>
+    <section>
+      <h2>Crosswalk Tests Used for Web TCT</h2>
+      <ul>
+        <li>behavior</li>
+        <li>doc</li>
+        <li>tools</li>
+        <li>webapi</li>
+        <li>wrt</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Differentiation</h2>
+      <ul>
+        <li>Based on Crosswalk web runtime rather than Tizen legacy runtime. tools/crosswalk/</li>
+        <li>Centralized resources, e.g. testharness.js, webrunner, tests.xml xsl. tools/resources/</li>
+        <li>Python based packaging and (un)installing scripts, toots/build/, with suite.json support.</li>
+        <li>More tools, e.g. tools/coverage/, tools/xmlsimplifier/, etc.</li>
+        <li>Markdown based documentation rather than PDF.</li>
+        <li>More web APIs supported with webapi/webapi-* suites.</li>
       </ul>
     </section>
   </section>
@@ -299,9 +321,36 @@ tct-capability-tests/
       <h2>Web Test Development</h2>
       <ul>
         <p>Role and Responsibility</p>
-        <li>Owner:</li>
-        <li>Contributor:</li>
+        <li>Owner: be accountable for test development and quality, review submission from any contributor, and own bug fixings.</li>
+        <li>Contributor: can submit tests/patches for any code which will be reviewed and merged by project owner.</li>
       </ul>
+    </section>
+    <section>
+      <h2>Web Test Development</h2>
+      <ul>
+        <p>Documentation</p>
+        <li>Follow the <a href="https://github.com/crosswalk-project/crosswalk-test-suite/blob/master/doc/Web_Test_Suite_Developer_Guide.md">Web Test Suite Developer Guide</a> to create new tests and test suites.</li>
+        <li>Follow <a href="http://testthewebforward.org/docs/">W3C documentation at Test the Web Forward</a> to set up environment, submit and review tests.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Web Test Development</h2>
+      <p>Commit Message</p>
+      <pre><code>
+Capitalized, short (50 chars or less) summary
+
+More detailed explanatory text, if necessary.  Wrap it to about 72
+characters or so.  In some contexts, the first line is treated as the
+subject of an email and the rest of the text as the body.  The blank
+line separating the summary from the body is critical (unless you omit
+the body entirely); tools like rebase can get confused if you run the
+two together.
+
+Impacted tests: new 0, update 5, delete 0
+Unit test platform: Tizen Wearable &ltversion&gt
+Unit test result summary: pass 205, fail 0, block 0
+      </code></pre>
+      <p>See details at my post <a href="http://zqzhang.github.io/blog/2015/01/09/commit-message.html">why commit message is so important</a>.</p>
     </section>
   </section>
 
@@ -309,6 +358,8 @@ tct-capability-tests/
     <section>
       <h2>Web TCT Build and Release</h2>
       <ul>
+        <li>Follow <a href="https://github.com/crosswalk-project/crosswalk-test-suite/blob/master/doc/Web_Test_Suite_Packaging_Guide.md">Web Test Suite Packaging Guide</a> to build test suites.</li>
+        <li>Follow <a href="">Tool Packaging Guide</a> to an all-in-one package for TCT released to <a href="http://download.tizen.org/tct/">download.tizen.org/tct/</a>.</li>
       </ul>
     </section>
   </section>
