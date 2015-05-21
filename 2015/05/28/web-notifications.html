@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<title>Web Notifications</title>
+
+<meta name="description" content="Introduce Web Notifications API, spec and implementation in Crosswalk to team.">
+<meta name="presdate" content="20150528">
+<meta name="author" content="Zhiqiang Zhang" href="mailto:zhiqiang.zhang@intel.com">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="../../../css/reveal.css">
+<link rel="stylesheet" href="../../../css/theme/beige.css" id="theme">
+
+<!-- For syntax highlighting -->
+<link rel="stylesheet" href="../../../lib/css/zenburn.css">
+
+</head>
+<body>
+
+<div class="reveal">
+<div class="slides">
+
+  <section>
+    <h1>Web Notifications API</h1>
+    <p>
+      <i>Zhiqiang Zhang (<a href="https://github.com/zqzhang" class="url Nickname">zqzhang</a>), <a class="org" href="http://www.intel.com/">Intel</a></i>
+    </p>
+  </section>
+
+  <section>
+    <h2>Agenda</h2>
+    <ul>
+      <li>Demo</li>
+      <li>W3C Web Notifications</li>
+      <li>WHATWG Notifications API</li>
+      <li>Tizen Notification API</li>
+      <li>Crosswalk Implementation Status</li>
+      <li>Future</li>
+    </ul>
+  </section>
+
+  <section>
+    <section>
+      <h2>W3C Web Notifications</h2>
+      <ul>
+        <p>
+          <a href="http://www.w3.org/TR/notifications/">W3C Candidate Recommendation 19 May 2015</a>
+        </p>
+        <li></li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2>WHATWG Notifications API</h2>
+      <ul>
+        <p>
+          <a href="https://notifications.spec.whatwg.org/">Living Standard — Last Updated 1 May 2015</a>
+        </p>
+        <li></li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2>Tizen Notification API</h2>
+      <ul>
+        <p>
+          <a href="https://developer.tizen.org/dev-guide/2.3.0/org.tizen.web.apireference/html/device_api/mobile/tizen/notification.html">Since 2.0</a>
+        </p>
+        <li></li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2>Crosswalk Implementation Status</h2>
+      <ul>
+        <p>
+          <a href="https://crosswalk-project.org/jira/browse/XWALK-3654">Investigate ditching "desktop" notifications support in Crosswalk</a>
+        </p>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2>Future</h2>
+      <ul>
+        <li></li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <h2>Thanks</h2>
+  </section>
+
+</div>
+</div>
+
+<script src="../../../lib/js/head.min.js"></script>
+<script src="../../../js/reveal.min.js"></script>
+
+<script>
+
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [
+      { src: '../../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: '../../../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: '../../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: '../../../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: '../../../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    ]
+  });
+
+</script>
+
+</body>
+</html>
+
