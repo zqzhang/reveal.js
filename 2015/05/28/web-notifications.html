@@ -48,9 +48,14 @@
 
   <section>
     <section>
-      <h2>Notifications is Ubiquitous in Life</h2>
-      <img src="../../../img/notification-pull-down.png" alt="Phone pulling down!">
-      <img src="../../../img/notification-home-screen.png" alt="Unread messages.">
+      <h2>Notifications are Ubiquitous in Life</h2>
+      <img src="../../../img/notifications-pulldown.png" alt="Phone pulling down!">
+      <img src="../../../img/notifications-weichart.png" alt="Unread messages.">
+    </section>
+    <section>
+      <h2>Notifications on Desktop and Mobile Devices</h2>
+      <img src="../../../img/notifications-insane.png" alt="Do insane notifications!">
+      <div><small>Image shamelessly stolen from <a href="http://www.briansolis.com/2015/04/apple-watch-gift-knowledge-workers/">a blog of Brian Solis</a>.</small></div>
     </section>
   </section>
 
@@ -101,6 +106,12 @@ dictionary NotificationOptions {
   DOMString icon;
 };
       </code></pre>
+      <ul>
+        <p>Language</p>
+        <li>Specifies the primary language for the notification's title and body.</li>
+        <li>Is a valid <a href="https://tools.ietf.org/html/bcp47">BCP 47</a> language tag (<a href="https://github.com/w3c/web-platform-tests/pull/1699">tests</a>, <a href="http://schneegans.de/lv/">validator</a>), or the empty string.</li>
+        <li>The empty string indicates that the primary language is unknown.</li>
+      </ul>
     </section>
     <section>
       <h2>NotificationPermission</h2>
@@ -138,6 +149,12 @@ callback interface EventListener {
   void handleEvent(Event event);
 };
       </code></pre>
+      <ul>
+        <li>EventTarget is an object to which an event is dispatched when something has occurred.</i>
+        <li>Each EventTarget has an associated list of event listeners.</li>
+        <li>An event listener associates a callback with a specific event.</li>
+        <li>Each <strong>event listener</strong> consists of a type (of the event), callback, and capture variable.</li>
+      </ul>
     </section>
     <section>
       <h2>EventHandler from <a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">HTML Standard</a></h2>
@@ -146,6 +163,11 @@ callback interface EventListener {
 callback EventHandlerNonNull = any (Event event);
 typedef EventHandlerNonNull? EventHandler;
       </code></pre>
+      <ul>
+        <li>Every <strong>event handler</strong> ends up registering the same listener.</i>
+        <li>Listeners are called in the order they were registered.</li>
+        <li>When an event handler H of an element or object T implementing the EventTarget interface is first set to a non-null value, the user agent must append an event listener to the list of event listeners associated with T with type set to the event handler event type corresponding to H, capture set to false, and listener set to the event handler processing algorithm.</li>
+      </ul>
     </section>
     <section>
       <h2>Demo</h2>
@@ -221,6 +243,12 @@ partial interface Navigator {
     boolean vibrate (VibratePattern pattern);
 };
       </code></pre>
+      <ul>
+        <li><a href="">Blink Intent to Ship : Notification Options "vibrate" flag.</a></li>
+        <li>navigator.vibrate(1000); navigator.vibrate([1000]);</li>
+        <li>navigator.vibrate([1000, 1000, 2000]);</li>
+        <li>navigator.vibrate(0); navigator.vibrate([]); navigator.vibrate([0]);</li>
+      </ul>
     </section>
     <section>
       <h2>USVString v.s DOMString</h2>
