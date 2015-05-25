@@ -171,6 +171,23 @@ typedef EventHandlerNonNull? EventHandler;
     </section>
     <section>
       <h2>Demo</h2>
+      <button id="w3c-notification">Notify me!</button>
+    </section>
+    <section>
+      <h2>Demo Code</h2>
+      <pre><code>
+if (!("Notification" in window)) {
+  alert("This browser does not support desktop notification");
+} else if (Notification.permission === "granted") {
+  var notification = new Notification("Hi there!");
+} else if (Notification.permission !== 'denied') {
+  Notification.requestPermission(function (permission) {
+    if (permission === "granted") {
+      var notification = new Notification("Hi there!");
+    }
+  });
+}
+      </code></pre>
     </section>
   </section>
 
@@ -502,6 +519,8 @@ interface NotificationDetailInfo {
   });
 
 </script>
+
+<script src="../../../js/notifications.js"></script>
 
 </body>
 </html>
