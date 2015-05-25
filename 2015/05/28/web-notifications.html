@@ -37,7 +37,7 @@
   <section>
     <h2>Agenda</h2>
     <ul>
-      <li>Demo</li>
+      <li>Notifications</li>
       <li>W3C Web Notifications</li>
       <li>WHATWG Notifications API</li>
       <li>Tizen Notification API</li>
@@ -48,13 +48,107 @@
 
   <section>
     <section>
+      <h2>Notifications is Ubiquitous in Life</h2>
+      <img src="../../../img/notification-pull-down.png" alt="Phone pulling down!">
+      <img src="../../../img/notification-home-screen.png" alt="Unread messages.">
+    </section>
+  </section>
+
+  <section>
+    <section>
       <h2>W3C Web Notifications</h2>
       <ul>
         <p>
           <a href="http://www.w3.org/TR/notifications/">W3C Candidate Recommendation 19 May 2015</a>
         </p>
-        <li></li>
+        <li>"... an API to display notifications to alert users outside the context of a web page."</li>
+        <li>"It does not specify exactly how a user agent should display these notifications."</li>
+        <li>"... notifications as specified here only can contain text and icon content."</li>
       </ul>
+    </section>
+    <section>
+      <h2>Notification API</h2>
+      <pre><code>
+[Constructor(DOMString title, optional NotificationOptions options)]
+interface Notification : EventTarget {
+  static readonly attribute NotificationPermission permission;
+  static void requestPermission(optional NotificationPermissionCallback callback);
+
+  attribute EventHandler onclick;
+  attribute EventHandler onshow;
+  attribute EventHandler onerror;
+  attribute EventHandler onclose;
+
+  readonly attribute DOMString title;
+  readonly attribute NotificationDirection dir;
+  readonly attribute DOMString lang;
+  readonly attribute DOMString body;
+  readonly attribute DOMString tag;
+  readonly attribute DOMString icon;
+
+  void close();
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>NotificationOptions</h2>
+      <pre><code>
+dictionary NotificationOptions {
+  NotificationDirection dir = "auto";
+  DOMString lang = "";
+  DOMString body;
+  DOMString tag;
+  DOMString icon;
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>NotificationPermission</h2>
+      <pre><code>
+enum NotificationPermission {
+  "default",
+  "denied",
+  "granted"
+};
+
+callback NotificationPermissionCallback = void (NotificationPermission permission);
+      </code></pre>
+    </section>
+    <section>
+      <h2>NotificationDirection</h2>
+      <pre><code>
+enum NotificationDirection {
+  "auto",
+  "ltr",
+  "rtl"
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>EventTarget from <a href="https://dom.spec.whatwg.org/#eventtarget">DOM Standard</a></h2>
+      <pre><code>
+[Exposed=(Window,Worker)]
+interface EventTarget {
+  void addEventListener(DOMString type, EventListener? callback, optional boolean capture = false);
+  void removeEventListener(DOMString type, EventListener? callback, optional boolean capture = false);
+  boolean dispatchEvent(Event event);
+};
+
+callback interface EventListener {
+  void handleEvent(Event event);
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>EventHandler from <a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">HTML Standard</a></h2>
+      <pre><code>
+[TreatNonObjectAsNull]
+callback EventHandlerNonNull = any (Event event);
+typedef EventHandlerNonNull? EventHandler;
+      </code></pre>
+    </section>
+    <section>
+      <h2>Demo</h2>
     </section>
   </section>
 
@@ -65,8 +159,149 @@
         <p>
           <a href="https://notifications.spec.whatwg.org/">Living Standard — Last Updated 1 May 2015</a>
         </p>
-        <li></li>
+        <li>"... an API to display notifications to the end user, typically outside the top-level browsing context’s viewport."</li>
+        <li>"It is designed to be compatible with existing notification systems, while remaining platform-independent."</li>
       </ul>
+    </section>
+    <section>
+      <h2>Notification API</h2>
+      <pre><code>
+[Constructor(DOMString title, optional NotificationOptions options),
+ Exposed=(Window,Worker)]
+interface Notification : EventTarget {
+  static readonly attribute NotificationPermission permission;
+  [Exposed=Window] static void requestPermission(optional NotificationPermissionCallback callback);
+
+  attribute EventHandler onclick;
+  attribute EventHandler onerror;
+
+  readonly attribute DOMString title;
+  readonly attribute NotificationDirection dir;
+  readonly attribute DOMString lang;
+  readonly attribute DOMString body;
+  readonly attribute DOMString tag;
+  readonly attribute USVString icon;
+  readonly attribute USVString sound;
+  // vibrate not exposed for now; see bug 23682
+  readonly attribute boolean renotify;
+  readonly attribute boolean silent;
+  readonly attribute boolean noscreen;
+  readonly attribute boolean sticky;
+  [SameObject] readonly attribute any data;
+
+  void close();
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>NotificationOptions</h2>
+      <pre><code>
+dictionary NotificationOptions {
+  NotificationDirection dir = "auto";
+  DOMString lang = "";
+  DOMString body = "";
+  DOMString tag = "";
+  USVString icon;
+  USVString sound;
+  VibratePattern vibrate;
+  boolean renotify = false;
+  boolean silent = false;
+  boolean noscreen = false;
+  boolean sticky = false;
+  any data = null;
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>VibratePattern from <a href="http://dev.w3.org/2009/dap/vibration/">Vibration API</a></h2>
+      <pre><code>
+typedef (unsigned long or sequence&ltunsigned long&gt) VibratePattern;
+
+partial interface Navigator {
+    boolean vibrate (VibratePattern pattern);
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>USVString v.s DOMString</h2>
+      <pre><code>
+  DOMString lang = "";
+  DOMString body = "";
+  DOMString tag = "";
+  USVString icon;
+  USVString sound;
+      </code></pre>
+      <ul>
+        <li>A USVString is a DOMString produced by encoding the given sequence of Unicode scalar values in UTF-16.</li>
+        <li>USVString type corresponds to the set of all possible sequences of <i>Unicode scalar values</i>.</li>
+        <li>The type name of the USVString type is “USVString”.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Service Worker API</h2>
+      <pre><code>
+dictionary GetNotificationOptions {
+  DOMString tag = "";
+};
+
+partial interface ServiceWorkerRegistration {
+  Promise&ltvoid&gt showNotification(DOMString title, optional NotificationOptions options);
+  Promise&ltsequence&ltNotification&gt&gt getNotifications(optional GetNotificationOptions filter);
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>Service Worker API</h2>
+      <pre><code>
+[Constructor(DOMString type, optional NotificationEventInit eventInitDict),
+ Exposed=ServiceWorker]
+interface NotificationEvent : ExtendableEvent {
+  readonly attribute Notification notification;
+};
+
+dictionary NotificationEventInit : ExtendableEventInit {
+  required Notification notification;
+};
+
+partial interface ServiceWorkerGlobalScope {
+  attribute EventHandler onnotificationclick;
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>ExtendableEvent from <a href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendable-event">Service Worker</a></h2>
+      <pre><code>
+[Constructor(DOMString type, optional ExtendableEventInit eventInitDict),
+ Exposed=ServiceWorker]
+interface ExtendableEvent : Event {
+  void waitUntil(Promise&ltany&gt f);
+};
+
+dictionary ExtendableEventInit : EventInit {
+  // Defined for the forward compatibility across the derived events
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>Promise Object from <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-promise-objects"></a>ES6 Draft</h2>
+      <p>A Promise is an object that is used as a placeholder for the eventual results of a deferred (and possibly asynchronous) computation.</p>
+      <pre><code>
+      </code></pre>
+    </section>
+    <section>
+      <h2>required keyword from <a href="http://heycam.github.io/webidl/#idl-dictionaries">WebIDL</a></h2>
+      <pre><code>
+dictionary identifier {
+  required type identifier;
+};
+      </code></pre>
+      <ul>
+        <li>If the type of the dictionary member is preceded by the required keyword, the member is considered a <i>required dictionary member</i> and must be present on the dictionary.</li>
+        <li>A required dictionary member must not have a default value.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Demo</h2>
     </section>
   </section>
 
@@ -77,8 +312,110 @@
         <p>
           <a href="https://developer.tizen.org/dev-guide/2.3.0/org.tizen.web.apireference/html/device_api/mobile/tizen/notification.html">Since 2.0</a>
         </p>
-        <li></li>
+        <li>"... provides a way to notify users of events that happen in an application."</li>
+        <li>"This feature is supported in mobile applications only."</li>
+        <li>"Currently (Tizen 2.3.0), only the <i>StatusNotification</i> subtype is supported. This subtype displays notifications in the status bar."</li>
       </ul>
+    </section>
+    <section>
+      <h2>tizen.notification</h2>
+      <pre><code>
+typedef DOMString NotificationId;
+enum NotificationType { "STATUS" };
+enum StatusNotificationType { "SIMPLE", "THUMBNAIL", "ONGOING", "PROGRESS" };
+enum NotificationProgressType { "PERCENTAGE",  "BYTE" };
+
+[NoInterfaceObject] interface NotificationObject {
+    readonly attribute NotificationManager notification;
+};
+Tizen implements NotificationObject;
+      </code></pre>
+    </section>
+    <section>
+      <h2>NotificationManager</h2>
+      <pre><code>
+[NoInterfaceObject] interface NotificationManager {
+    void post(Notification notification) raises(WebAPIException);
+    void update(Notification notification) raises(WebAPIException);
+    void remove(NotificationId id) raises(WebAPIException);
+    void removeAll() raises(WebAPIException);
+    Notification get(NotificationId id) raises(WebAPIException);
+    Notification[] getAll() raises(WebAPIException);
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>Notification</h2>
+      <pre><code>
+[NoInterfaceObject] interface Notification {
+    readonly attribute NotificationId id;
+    readonly attribute NotificationType type;
+    readonly attribute Date postedTime;
+    attribute DOMString title;
+    attribute DOMString? content;
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>StatusNotification</h2>
+      <pre><code>
+[Constructor(StatusNotificationType statusType, DOMString title,
+ optional StatusNotificationInit? notificationInitDict)]
+    interface StatusNotification : Notification {
+    readonly attribute StatusNotificationType statusType;
+    attribute DOMString? iconPath;
+    attribute DOMString? subIconPath;
+    attribute long? number;
+    attribute NotificationDetailInfo[]? detailInfo;
+    attribute DOMString? ledColor;
+    attribute unsigned long ledOnPeriod;
+    attribute unsigned long ledOffPeriod;
+    attribute DOMString? backgroundImagePath;
+    attribute DOMString[]? thumbnails;
+    attribute DOMString? soundPath;
+    attribute boolean vibration;
+    attribute ApplicationControl? appControl;
+    attribute ApplicationId? appId;
+    attribute NotificationProgressType progressType;
+    attribute unsigned long? progressValue;
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>StatusNotificationInit</h2>
+      <pre><code>
+dictionary StatusNotificationInit {
+    DOMString? content;
+    DOMString? iconPath;
+    DOMString? soundPath;
+    boolean? vibration;
+    ApplicationControl? appControl;
+    ApplicationId? appId;
+    NotificationProgressType? progressType;
+    unsigned long? progressValue;
+    long? number;
+    DOMString? subIconPath;
+    NotificationDetailInfo[]? detailInfo;
+    DOMString? ledColor;
+    unsigned long ledOnPeriod;
+    unsigned long ledOffPeriod;
+    DOMString? backgroundImagePath;
+    DOMString[]? thumbnails;
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>NotificationDetailInfo</h2>
+      <pre><code>
+[Constructor(DOMString mainText, optional DOMString? subText)]
+interface NotificationDetailInfo {
+    attribute DOMString mainText;
+    attribute DOMString? subText;
+};
+      </code></pre>
+    </section>
+    <section>
+      <h2>Demo</h2>
     </section>
   </section>
 
@@ -140,4 +477,3 @@
 
 </body>
 </html>
-
