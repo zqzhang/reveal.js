@@ -1,5 +1,7 @@
+"use strict"
+
 // Stolen from https://developer.mozilla.org/en-US/docs/Web/API/notification
-function notifyMe() {
+var notifyMe = function () {
   // Let's check if the browser supports notifications
   if (!("Notification" in window)) {
     alert("This browser does not support desktop notification");
@@ -23,6 +25,35 @@ function notifyMe() {
 
   // At last, if the user has denied notifications, and you 
   // want to be respectful there is no need to bother them any more.
-}
+};
 
 document.getElementById("w3c-notification").addEventListener("click", notifyMe, false);
+
+var notify = function() {
+  var options = {
+    body: "Click me please!",
+    icon: "../../../img/tizen-profiles-small.png",
+    sound: "../../../sound/greeting.m4a",
+    tag: "whatwg",
+  };
+  var n = new Notification('Greetings from Zhiqiang!', options);
+  n.onclick = function() {
+    alert("You have clicked the notification!");
+  };
+};
+
+var notifyMeSound = function () {
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  } else if (Notification.permission === "granted") {
+    notify();
+  } else if (Notification.permission !== "denied") {
+    Notification.requestPermission(function (permission) {
+      if (permission === "granted") {
+        notify();
+      }
+    });
+  }
+};
+
+document.getElementById("whatwg-notification").addEventListener("click", notifyMeSound, false);
