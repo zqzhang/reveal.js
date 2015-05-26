@@ -283,6 +283,17 @@ partial interface Navigator {
       </ul>
     </section>
     <section>
+      <h2>SameObject from <a href="http://heycam.github.io/webidl/#SameObject">WebIDL</a></h2>
+      <pre><code>
+[SameObject] readonly attribute any data;
+      </code></pre>
+      <ul>
+        <li>If the [SameObject] extended attribute appears on a read only attribute, then it indicates that when getting the value of the attribute on a given object, the same value must always be returned.</li>
+        <li>The [SameObject] extended attribute must take no arguments.</li>
+        <li>The [SameObject] extended attribute must not be used on anything other than a read only attribute whose type is an interface type, an array type or object.</li>
+      </ul>
+    </section>
+    <section>
       <h2>Demo</h2>
       <button id="whatwg-notification">Notify me sound!</button>
     </section>
