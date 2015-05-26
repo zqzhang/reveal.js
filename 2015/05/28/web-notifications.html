@@ -287,6 +287,23 @@ partial interface Navigator {
       <button id="whatwg-notification">Notify me sound!</button>
     </section>
     <section>
+      <h2>Demo Code</h2>
+      <pre><code>
+var notify = function() {
+  var options = {
+    body: "Click me please!",
+    icon: "../../../img/tizen-profiles-small.png",
+    sound: "../../../sound/greeting.m4a",
+    tag: "whatwg",
+  };
+  var n = new Notification('Greetings from Zhiqiang!', options);
+  n.onclick = function() {
+    alert("You have clicked the notification!");
+  };
+};
+      </code></pre>
+    </section>
+    <section>
       <h2>Service Worker API</h2>
       <pre><code>
 dictionary GetNotificationOptions {
