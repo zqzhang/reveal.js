@@ -503,10 +503,32 @@ interface NotificationDetailInfo {
     <section>
       <h2>Crosswalk Implementation Status</h2>
       <ul>
-        <p>
-          <a href="https://crosswalk-project.org/jira/browse/XWALK-3654">Investigate ditching "desktop" notifications support in Crosswalk</a>
-        </p>
+        <li>For Android, follow Android-webview's implementation of 'desktop notification', but only support non-persistent notification.</li>
+        <li>For Linux, Peter Wang implemented 'desktop notification' based on <a href="">'libnotify'</a>, independent with chromium code. But only support (1) Notification constructor, (2) permission/requestPermission, (3) onclose.</li>
+        <li>For Tizen, not implemented at all (there is an extension to implement a similar Tizen API).
       </ul>
+    </section>
+    <section>
+      <h2>Crosswalk Implementation Code</h2>
+      <pre><code>
+#if defined(OS_ANDROID)
+  return blink::WebNotificationPermissionAllowed;
+#elif defined(OS_LINUX) && defined(USE_LIBNOTIFY)
+  return blink::WebNotificationPermissionAllowed;
+#else
+  return blink::WebNotificationPermissionDenied;
+#endif
+      </code></pre>
+      <p><a href="https://github.com/crosswalk-project/crosswalk/blob/master/runtime/browser/xwalk_platform_notification_service.cc">xwalk_platform_notification_service.cc</a></p>
+    </section>
+    <section>
+      <h2>Crosswalk Implementation Next</h2>
+      <ul>
+        <li><a href="https://crosswalk-project.org/jira/browse/XWALK-3654">Investigate ditching "desktop" notifications support in Crosswalk</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Demo</h2>
     </section>
   </section>
 
